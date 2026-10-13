@@ -15,7 +15,7 @@ habla-con-seguridad/
 ├── css/
 │   └── styles.css        ← estilos (claro/oscuro, responsive)
 ├── js/
-│   ├── temas.js          ← biblioteca de 238 temas (editable)
+│   ├── temas.js          ← biblioteca de 505 temas (editable)
 │   ├── contenido.js      ← audiencias, repreguntas, frases de apoyo, criterios
 │   └── app.js            ← lógica de la app
 ├── sw.js                 ← service worker (uso sin conexión)
@@ -43,7 +43,7 @@ habla-con-seguridad/
    rama **main** y carpeta **/ (root)**. Guardá.
 4. En uno o dos minutos la app queda en `https://TU_USUARIO.github.io/habla-con-seguridad/`.
 
-**Al actualizar archivos:** cambiá el número de `VERSION` en `sw.js` (por ejemplo `hcs-v2` → `hcs-v3`).
+**Al actualizar archivos:** cambiá el número de `VERSION` en `sw.js` (por ejemplo `hcs-v3` → `hcs-v4`).
 Así los navegadores que ya la tenían guardada para uso sin conexión descargan la versión nueva.
 
 **Probar en tu computadora:** abrir `index.html` con doble clic funciona, pero el modo sin conexión solo se activa
@@ -69,7 +69,7 @@ buscador con filtro por categoría. Las notas que ya tenías guardadas se **migr
 
 **Novedades:**
 - Pantalla de inicio con la dinámica, tema del día, "Tema sorpresa" y "Elegir por categoría" (opción de no mostrarla más).
-- 238 temas en 19 categorías (139 nuevos), con marcas visibles cuando el tema **depende de la jurisdicción**, **requiere fuentes actualizadas** o **no reemplaza consejo profesional**.
+- 505 temas en 23 categorías (406 nuevos, incluidas Geografía, Filosofía y ética, Deportes, y Lenguaje y escritura), con marcas visibles cuando el tema **depende de la jurisdicción**, **requiere fuentes actualizadas** o **no reemplaza consejo profesional**.
 - El aleatorio no repite el tema actual y evita los practicados recientemente.
 - Etapas de práctica: Investigar → Exponer → Repreguntas → Autoevaluar.
 - Modo exposición que oculta resumen y notas, con cronómetro de 1-2 minutos y simulación de audiencia (superior, compañero con más experiencia, cliente).
@@ -97,7 +97,7 @@ Si agregás una categoría nueva, aparece sola en el filtro y en el diálogo de 
 ## Lista de pruebas manuales
 
 Inicio y temas
-- [ ] Al abrir por primera vez aparece la pantalla de inicio con la cantidad de temas (238) y el tema del día.
+- [ ] Al abrir por primera vez aparece la pantalla de inicio con la cantidad de temas (505) y el tema del día.
 - [ ] "Tema sorpresa" lleva a Practicar con un tema; tocándolo varias veces nunca repite el que está en pantalla.
 - [ ] "Elegir por categoría" abre el diálogo; al elegir una categoría, el tema nuevo es de esa categoría. Escape cierra el diálogo.
 - [ ] En Temas, buscar "computacion" (sin tilde) encuentra "¿Qué es la computación en la nube?".

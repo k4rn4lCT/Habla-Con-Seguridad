@@ -1,6 +1,6 @@
 /* Service worker: guarda la app en caché para usarla sin conexión.
  * Si cambiás cualquier archivo, subí el número de VERSION para que los navegadores bajen la nueva versión. */
-var VERSION = "hcs-v2";
+var VERSION = "hcs-v3";
 var FILES = [
   "./",
   "index.html",
