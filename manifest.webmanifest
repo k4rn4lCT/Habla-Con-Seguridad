@@ -1,0 +1,14 @@
+{
+  "name": "Habla con seguridad",
+  "short_name": "Habla con seguridad",
+  "description": "Entrenador para explicar temas con seguridad y honestidad.",
+  "lang": "es-UY",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f6fb",
+  "theme_color": "#172554",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

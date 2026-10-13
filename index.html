@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es-UY">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Entrenador para practicar cómo explicar temas con seguridad y honestidad: 5 minutos para investigar, 1-2 minutos para explicar.">
+<meta name="theme-color" content="#172554">
+<title>Habla con seguridad — Entrenador</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/styles.css">
+<script>
+  /* Aplica tema y tamaño de letra antes de pintar, para evitar parpadeos */
+  try {
+    var p = JSON.parse(localStorage.getItem("hcs.prefs") || "{}");
+    if (p.theme === "dark" || p.theme === "light") document.documentElement.dataset.theme = p.theme;
+    if (p.textSize === "grande") document.documentElement.dataset.text = "grande";
+  } catch (e) { /* sin almacenamiento: se usan valores por defecto */ }
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <button class="brand" type="button" data-go="inicio" aria-label="Habla con seguridad: ir al inicio">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="9" fill="currentColor" opacity=".16"/><path d="M8 11.5c0-2 1.6-3.5 3.5-3.5h9c2 0 3.5 1.6 3.5 3.5v5c0 2-1.6 3.5-3.5 3.5H15l-4.5 4v-4h0C9 20 8 18.5 8 16.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12.5 14h7M12.5 17h4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span>Habla con seguridad</span>
+    </button>
+    <nav class="tabs" aria-label="Secciones">
+      <button type="button" class="tab" data-go="practicar">Practicar</button>
+      <button type="button" class="tab" data-go="temas">Temas <span class="tab-count" id="navCount"></span></button>
+      <button type="button" class="tab" data-go="progreso">Progreso</button>
+      <button type="button" class="tab" data-go="ajustes">Ajustes</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="banner warn hide" id="storageWarning" role="status">
+    Tu navegador no permite guardar datos (por ejemplo, en modo incógnito o con el almacenamiento bloqueado). Podés practicar igual, pero las notas, el historial y las preferencias se pierden al cerrar la página.
+  </div>
+  <div class="banner info hide" id="offlineBanner" role="status">Estás sin conexión. La app y los temas siguen funcionando.</div>
+</div>
+
+<main id="main" tabindex="-1">
+
+<!-- ================= INICIO ================= -->
+<section class="view" id="view-inicio" data-view="inicio" aria-labelledby="inicioTitle">
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow light">Entrenamiento de comunicación laboral</p>
+      <h1 id="inicioTitle">Aprendé algo nuevo.<br>Explicalo con seguridad.</h1>
+      <p class="hero-lead">No se trata de saberlo todo en cinco minutos. Se trata de entender lo esencial, contarlo con claridad y decir con tranquilidad qué te falta averiguar.</p>
+    </div>
+  </div>
+  <div class="wrap hero-overlap">
+    <ol class="steps-intro">
+      <li><span class="step-n">1</span><div><strong>Recibí un tema</strong><p>Al azar o elegido, de cualquier área: tecnología, historia, finanzas, videojuegos y más.</p></div></li>
+      <li><span class="step-n">2</span><div><strong>Investigá 5 minutos</strong><p>Partí del resumen, buscá en fuentes confiables y anotá palabras clave, no un discurso.</p></div></li>
+      <li><span class="step-n">3</span><div><strong>Explicalo 1-2 minutos</strong><p>En voz alta y sin leer: definición, ideas principales, ejemplo y una duda pendiente.</p></div></li>
+      <li><span class="step-n">4</span><div><strong>Repreguntas y repaso</strong><p>Practicá responder preguntas inesperadas y anotá cómo te fue, sin juzgarte.</p></div></li>
+    </ol>
+
+    <div class="start-grid">
+      <article class="card daily" aria-labelledby="dailyLabel">
+        <p class="eyebrow" id="dailyLabel">Tema del día</p>
+        <p class="daily-cat" id="dailyCat"></p>
+        <h2 class="daily-title" id="dailyTitle">Cargando…</h2>
+        <p class="muted small-text">Es el mismo para todo el día y queda disponible sin conexión una vez cargada la página.</p>
+        <button type="button" class="btn primary" id="dailyBtn">Practicar el tema del día</button>
+      </article>
+      <article class="card" aria-labelledby="otherLabel">
+        <p class="eyebrow" id="otherLabel">O elegí otra forma de empezar</p>
+        <p class="lib-count"><strong id="libCount">0</strong> temas en <strong id="catCount">0</strong> categorías</p>
+        <div class="stack">
+          <button type="button" class="btn secondary" data-action="sorpresa">🎲 Tema sorpresa</button>
+          <button type="button" class="btn secondary" data-action="categorias">Elegir por categoría</button>
+          <button type="button" class="btn ghost" data-go="temas">Ver todos los temas</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="card principles">
+      <h2>La regla de oro</h2>
+      <p>Esta app no te enseña a aparentar. Te ayuda a comunicar con seguridad <strong>lo que sabés</strong>, a marcar con claridad <strong>lo que no sabés</strong> y a proponer <strong>cómo verificarlo</strong>. Los resúmenes son un punto de partida: contrastalos con otras fuentes.</p>
+      <label class="check-inline"><input type="checkbox" id="skipWelcome"> No mostrar esta pantalla al abrir la app</label>
+    </div>
+    <p class="privacy-note">🔒 Todo lo que escribís queda solo en este navegador: no hay cuentas ni servidores. Si borrás los datos del navegador, también se borran tus notas e historial.</p>
+  </div>
+</section>
+
+<!-- ================= PRACTICAR ================= -->
+<section class="view hide" id="view-practicar" data-view="practicar" aria-labelledby="topicTitle">
+  <div class="wrap">
+    <div class="topic-head card">
+      <div class="topic-head-main">
+        <div class="topic-meta" id="topicMeta"></div>
+        <h1 class="topic-title" id="topicTitle" tabindex="-1">Elegí un tema</h1>
+      </div>
+      <div class="topic-head-actions">
+        <button type="button" class="btn secondary small" data-action="sorpresa">🎲 Tema sorpresa</button>
+        <button type="button" class="btn ghost small" data-action="categorias">Elegir por categoría</button>
+      </div>
+    </div>
+
+    <ol class="stepper" aria-label="Etapas de la práctica">
+      <li><button type="button" class="step" data-step="investigar"><span class="step-dot">1</span><span>Investigar</span></button></li>
+      <li><button type="button" class="step" data-step="exponer"><span class="step-dot">2</span><span>Exponer</span></button></li>
+      <li><button type="button" class="step" data-step="repreguntas"><span class="step-dot">3</span><span>Repreguntas</span></button></li>
+      <li><button type="button" class="step" data-step="evaluar"><span class="step-dot">4</span><span>Autoevaluar</span></button></li>
+    </ol>
+
+    <div class="banner done hide" id="timeUpBanner" role="alert">
+      <div><strong>⏰ ¡Se terminó el tiempo!</strong> Cerrá la investigación y pasá a explicar el tema sin leer.</div>
+      <button type="button" class="btn primary small" data-step-go="exponer">Ir al modo exposición</button>
+    </div>
+
+    <!-- Etapa 1: Investigar -->
+    <div class="stage" data-stage="investigar">
+      <div class="layout">
+        <div>
+          <article class="card">
+            <div id="topicFlags"></div>
+            <div class="summary">
+              <h2 class="h3">Resumen inicial</h2>
+              <p id="topicSummary"></p>
+              <h2 class="h3">Ideas clave</h2>
+              <ul class="key-list" id="topicKeys"></ul>
+            </div>
+            <p class="notice">Los resúmenes son un punto de partida, no la última palabra. Si algo te sorprende, buscalo en otra fuente.</p>
+            <details class="guide">
+              <summary>Preguntas guía para investigar</summary>
+              <div class="prompt-list" id="guideList"></div>
+            </details>
+          </article>
+
+          <article class="card">
+            <p class="eyebrow">Mientras investigás</p>
+            <h2>Mis notas</h2>
+            <p class="muted">Anotá palabras clave, no un discurso entero. En el modo exposición las notas quedan ocultas.</p>
+            <label for="notes" class="label">Notas de este tema (se guardan solas en este dispositivo)</label>
+            <textarea id="notes" rows="6" placeholder="Definición en pocas palabras · 3 ideas · un ejemplo · una duda pendiente"></textarea>
+            <div class="row-between">
+              <span class="saved" id="saveStatus" aria-live="polite"></span>
+              <button type="button" class="btn ghost small" id="clearNotes">Borrar notas de este tema</button>
+            </div>
+          </article>
+        </div>
+
+        <aside>
+          <div class="card timer-card" id="timerCard">
+            <p class="eyebrow light">Tiempo de investigación</p>
+            <h2>Cinco minutos de foco</h2>
+            <div class="timer" id="timer" role="timer" aria-label="Tiempo restante">05:00</div>
+            <div class="timer-track" aria-hidden="true"><div class="timer-fill" id="timerFill"></div></div>
+            <p class="timer-note" id="timerStatus" aria-live="polite">Cuando quieras, arrancá.</p>
+            <div class="actions">
+              <button type="button" class="btn light" id="timerToggle">Iniciar</button>
+              <button type="button" class="btn on-dark" id="timerReset">Reiniciar</button>
+            </div>
+            <p class="timer-note small-text">Podés usar buscadores y fuentes confiables. El tiempo sigue siendo exacto aunque cambies de pestaña.</p>
+          </div>
+          <div class="card">
+            <h2 class="h3">¿Listo para hablar?</h2>
+            <p class="muted">No hace falta esperar a que termine el tiempo.</p>
+            <button type="button" class="btn primary full" data-step-go="exponer">Pasar al modo exposición →</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Etapa 2: Exponer -->
+    <div class="stage hide" data-stage="exponer">
+      <div class="card expo">
+        <p class="eyebrow">Modo exposición · resumen y notas ocultos</p>
+        <p class="expo-title" id="expoTitle"></p>
+
+        <fieldset class="chips" id="audienceSet">
+          <legend>¿A quién se lo explicás?</legend>
+        </fieldset>
+        <div class="audience-tips" id="audienceTips" aria-live="polite"></div>
+
+        <div class="expo-grid">
+          <ol class="structure" id="structureList"></ol>
+          <div class="stopwatch" id="stopwatch">
+            <p class="eyebrow">Tu exposición (objetivo: 1 a 2 minutos)</p>
+            <div class="sw-time" id="swTime" role="timer" aria-label="Tiempo hablando">0:00</div>
+            <div class="sw-track" aria-hidden="true"><div class="sw-zone"></div><div class="sw-fill" id="swFill"></div></div>
+            <p class="sw-hint" id="swHint" aria-live="polite">Cuando empieces a hablar, tocá «Empezar».</p>
+            <div class="actions">
+              <button type="button" class="btn primary" id="swToggle">Empezar</button>
+              <button type="button" class="btn ghost" id="swReset">Reiniciar</button>
+            </div>
+          </div>
+        </div>
+
+        <details class="guide phrases-box">
+          <summary>Me trabé: frases de apoyo</summary>
+          <div class="phrases" data-phrases></div>
+        </details>
+
+        <div class="row-between stage-nav">
+          <button type="button" class="btn ghost" data-step-go="investigar">← Volver a investigar</button>
+          <div class="actions">
+            <button type="button" class="btn ghost" data-step-go="evaluar">Saltar a autoevaluar</button>
+            <button type="button" class="btn primary" data-step-go="repreguntas">Siguiente: repreguntas →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Etapa 3: Repreguntas -->
+    <div class="stage hide" data-stage="repreguntas">
+      <div class="card">
+        <p class="eyebrow">Modo repreguntas · opcional</p>
+        <h2>Te hacen una pregunta inesperada</h2>
+        <p class="muted" id="rqAudience"></p>
+        <blockquote class="question" id="rqText" aria-live="polite"></blockquote>
+        <p class="rq-hint" id="rqHint"></p>
+        <div class="actions">
+          <button type="button" class="btn primary" id="rqNext">Otra pregunta</button>
+          <span class="muted small-text" id="rqCount"></span>
+        </div>
+
+        <div class="answer-guide">
+          <h3 class="h3">Cómo responder sin inventar</h3>
+          <ol>
+            <li><strong>Decí lo que sabés</strong> con seguridad y en pocas palabras.</li>
+            <li><strong>Marcá el límite:</strong> «eso no lo tengo confirmado» o «depende de…».</li>
+            <li><strong>Proponé cómo verificarlo:</strong> dónde lo buscarías y cuándo volvés con la respuesta.</li>
+          </ol>
+          <p class="notice">La app no puede saber si tu respuesta técnica es correcta. Si no tenés una fuente, tratala como una hipótesis y verificala después.</p>
+        </div>
+
+        <details class="guide phrases-box">
+          <summary>Frases de apoyo</summary>
+          <div class="phrases" data-phrases></div>
+        </details>
+
+        <div class="row-between stage-nav">
+          <button type="button" class="btn ghost" data-step-go="exponer">← Volver a exponer</button>
+          <button type="button" class="btn primary" data-step-go="evaluar">Siguiente: autoevaluar →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Etapa 4: Autoevaluar -->
+    <div class="stage hide" data-stage="evaluar">
+      <form class="card" id="evalForm">
+        <p class="eyebrow">Autoevaluación</p>
+        <h2>¿Cómo te fue?</h2>
+        <p class="muted">No es un examen. Marcá cómo lo sentiste para ver tu avance con el tiempo.</p>
+        <div id="criteria"></div>
+        <label for="nextTime" class="label">Para la próxima quiero probar… (opcional)</label>
+        <input type="text" id="nextTime" maxlength="200" placeholder="Por ejemplo: empezar con la definición, hacer más pausas">
+        <div class="row-between stage-nav">
+          <button type="button" class="btn ghost" data-step-go="exponer">← Volver a exponer</button>
+          <button type="submit" class="btn primary">Guardar en mi progreso</button>
+        </div>
+        <div class="feedback hide" id="evalFeedback" role="status" tabindex="-1"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEMAS ================= -->
+<section class="view hide" id="view-temas" data-view="temas" aria-labelledby="temasTitle">
+  <div class="wrap narrow-top">
+    <div class="card">
+      <p class="eyebrow">Biblioteca</p>
+      <h1 class="h2" id="temasTitle">Elegí o buscá un tema</h1>
+      <p class="muted" id="libSummary"></p>
+      <div class="library-controls">
+        <div class="field">
+          <label for="search" class="label">Buscar</label>
+          <input type="search" id="search" placeholder="Ej.: inflación, redes, historia…" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="category" class="label">Categoría</label>
+          <select id="category"><option value="">Todas las categorías</option></select>
+        </div>
+      </div>
+      <div class="row-between">
+        <p class="muted small-text" id="libResults" aria-live="polite"></p>
+        <button type="button" class="btn secondary small" id="randomInFilter">🎲 Al azar dentro de este filtro</button>
+      </div>
+      <ul class="topic-library" id="topicLibrary"></ul>
+      <div class="center"><button type="button" class="btn ghost hide" id="moreTopics">Mostrar más</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROGRESO ================= -->
+<section class="view hide" id="view-progreso" data-view="progreso" aria-labelledby="progTitle">
+  <div class="wrap narrow-top">
+    <div class="card">
+      <p class="eyebrow">Tu progreso</p>
+      <h1 class="h2" id="progTitle">Lo que venís practicando</h1>
+      <div class="stats" id="stats"></div>
+      <div id="criteriaProgress"></div>
+    </div>
+    <div class="card">
+      <div class="row-between">
+        <h2>Historial</h2>
+        <div class="actions">
+          <button type="button" class="btn ghost small" id="exportBtn">Descargar copia</button>
+          <label class="btn ghost small file-btn">Importar copia<input type="file" id="importInput" accept="application/json,.json"></label>
+          <button type="button" class="btn danger small" id="clearHistory">Borrar historial</button>
+        </div>
+      </div>
+      <p class="muted small-text">El historial se guarda solo en este navegador. Si borrás los datos de navegación, se pierde. Descargá una copia si no querés perderlo.</p>
+      <ul class="history" id="historyList"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AJUSTES ================= -->
+<section class="view hide" id="view-ajustes" data-view="ajustes" aria-labelledby="ajTitle">
+  <div class="wrap narrow-top">
+    <form class="card" id="prefsForm">
+      <p class="eyebrow">Ajustes</p>
+      <h1 class="h2" id="ajTitle">Preferencias</h1>
+      <div class="pref">
+        <label class="check-inline"><input type="checkbox" name="sound"> Sonido cuando termina el tiempo</label>
+        <button type="button" class="btn ghost small" id="testSound">Probar sonido</button>
+      </div>
+      <div class="pref"><label class="check-inline"><input type="checkbox" name="vibrate"> Vibrar al terminar (en celulares compatibles)</label></div>
+      <div class="pref"><label class="check-inline"><input type="checkbox" name="showWelcome"> Mostrar la pantalla de inicio al abrir</label></div>
+      <fieldset class="pref">
+        <legend>Apariencia</legend>
+        <label class="check-inline"><input type="radio" name="theme" value="auto"> Según el sistema</label>
+        <label class="check-inline"><input type="radio" name="theme" value="light"> Claro</label>
+        <label class="check-inline"><input type="radio" name="theme" value="dark"> Oscuro</label>
+      </fieldset>
+      <fieldset class="pref">
+        <legend>Tamaño de letra</legend>
+        <label class="check-inline"><input type="radio" name="textSize" value="normal"> Normal</label>
+        <label class="check-inline"><input type="radio" name="textSize" value="grande"> Grande</label>
+      </fieldset>
+      <p class="saved" id="prefsSaved" aria-live="polite"></p>
+    </form>
+    <div class="card">
+      <h2>Tus datos</h2>
+      <p>Las preferencias, notas e historial se guardan <strong>solo en este navegador</strong> (localStorage). No se envían a ningún lado. Por eso:</p>
+      <ul>
+        <li>Si borrás los datos de navegación, usás modo incógnito o cambiás de navegador o dispositivo, no vas a ver tu progreso.</li>
+        <li>Desde <em>Progreso</em> podés descargar una copia e importarla en otro navegador.</li>
+      </ul>
+      <p class="muted small-text" id="storageUsage"></p>
+      <div class="actions">
+        <button type="button" class="btn danger small" id="clearAllNotes">Borrar todas las notas</button>
+        <button type="button" class="btn danger small" id="clearAll">Borrar todos mis datos</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Cómo funciona</h2>
+      <p>Cada práctica tiene cuatro etapas: investigar durante cinco minutos, exponer en voz alta durante uno o dos minutos sin leer, responder repreguntas y autoevaluarte. Las repreguntas son genéricas: la app no corrige contenido técnico, así que cuando no tengas fuente, decilo y proponé cómo verificarlo.</p>
+      <button type="button" class="btn secondary small" data-go="inicio">Ver la pantalla de inicio</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <p>La seguridad se construye con práctica, curiosidad y honestidad. No se finge.</p>
+  <p class="small-text">Funciona sin conexión una vez cargada · Tus datos no salen de este navegador</p>
+</footer>
+
+<!-- Diálogo de categorías -->
+<dialog id="catDialog" aria-labelledby="catDialogTitle">
+  <form method="dialog" class="dialog-inner">
+    <div class="row-between">
+      <h2 id="catDialogTitle">Elegí una categoría</h2>
+      <button class="btn ghost small" value="cancel" aria-label="Cerrar">✕</button>
+    </div>
+    <p class="muted">Te damos un tema al azar de la categoría que elijas.</p>
+    <div class="cat-grid" id="catGrid"></div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/temas.js"></script>
+<script src="js/contenido.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
